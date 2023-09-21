@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "719267740110",
+    "project_id": "fanailnotbad",
+    "storage_bucket": "fanailnotbad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719267740110:android:b19b3c127d3fc0f53a539f",
+        "android_client_info": {
+          "package_name": "com.shadyalkoalk.fainalnotbad"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8PiJh1DWRK62tPsEZsPeLSRoz_F9OfBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
