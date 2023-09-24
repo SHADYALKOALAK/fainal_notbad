@@ -48,7 +48,7 @@ class _HomePageScreenState extends State<HomePageScreen>
             centerTitle: true,
             leading: const SizedBox(),
             backgroundColor: Colors.black,
-            title: const Text('To Do List'),
+            title: const Text('My Products '),
           ),
           backgroundColor: Colors.black,
           body: StreamBuilder(
