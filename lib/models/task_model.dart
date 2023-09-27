@@ -1,19 +1,19 @@
 import 'package:fainalnotbad/models/images_model.dart';
 
-class TaskModel {
+class ProductModel {
   String? id;
   String? title;
   String? not;
   List<dynamic>? images;
 
-  TaskModel({
+  ProductModel({
     this.id,
     this.title,
     this.not,
     this.images,
   });
 
-  TaskModel.fromJson(Map<String, dynamic> json) {
+  ProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['titel'];
     not = json['not'];

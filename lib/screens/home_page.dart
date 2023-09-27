@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fainalnotbad/FireBase/firebase_task_controller.dart';
+import 'package:fainalnotbad/FireBase/firebase_products_controller.dart';
 import 'package:fainalnotbad/firebase/fb_storege_controller.dart';
 import 'package:fainalnotbad/helbers/image_picker.dart';
 import 'package:fainalnotbad/helbers/nav_helber.dart';
 import 'package:fainalnotbad/models/task_model.dart';
-import 'package:fainalnotbad/screens/add_task_screen.dart';
+import 'package:fainalnotbad/screens/add_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -40,7 +40,7 @@ class _HomePageScreenState extends State<HomePageScreen>
             backgroundColor: Colors.orange,
             child: const Icon(Icons.arrow_forward_rounded),
             onPressed: () {
-              jump(context, const AddTaskScreen(), false);
+              jump(context, const AddProductScreen(), false);
             },
           ),
           appBar: AppBar(
@@ -52,7 +52,7 @@ class _HomePageScreenState extends State<HomePageScreen>
           ),
           backgroundColor: Colors.black,
           body: StreamBuilder(
-            stream: FireBaseTaskController().read(),
+            stream: FbProductsController().read(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -60,7 +60,7 @@ class _HomePageScreenState extends State<HomePageScreen>
                   color: Colors.orange,
                 ));
               } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-                List<TaskModel> list =
+                List<ProductModel> list =
                     snapshot.data!.docs.map((e) => e.data()).toList();
                 return ListView.separated(
                   itemCount: list.length,
@@ -74,7 +74,7 @@ class _HomePageScreenState extends State<HomePageScreen>
                       children: [
                         InkWell(
                           onTap: () => jump(context,
-                              AddTaskScreen(taskModel: list[index]), false),
+                              AddProductScreen(productModel: list[index]), false),
                           splashColor: Colors.transparent,
                           child: Container(
                             width: double.infinity,
@@ -116,7 +116,7 @@ class _HomePageScreenState extends State<HomePageScreen>
                           end: 10.w,
                           child: InkWell(
                             onTap: () async {
-                              await FireBaseTaskController()
+                              await FbProductsController()
                                   .delete(list[index]);
                               for (var item in list[index].images!) {
                                 await FbStorageController().delete(item.path);

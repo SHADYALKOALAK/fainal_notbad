@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fainalnotbad/models/task_model.dart';
 
-class FireBaseTaskController {
+class FbProductsController {
   final FirebaseFirestore _firebase = FirebaseFirestore.instance;
-  final String table = 'notBads';
+  final String table = 'products';
 
   ///insert
-  Future<bool> insert(TaskModel model) async {
+  Future<bool> insert(ProductModel model) async {
     await _firebase
         .collection(table)
         .doc(model.id)
@@ -15,12 +15,12 @@ class FireBaseTaskController {
     return true;
   }
 
-  Stream<QuerySnapshot<TaskModel>> read() async* {
+  Stream<QuerySnapshot<ProductModel>> read() async* {
     yield* _firebase
         .collection(table)
-        .withConverter<TaskModel>(
+        .withConverter<ProductModel>(
           fromFirestore: (snapshot, options) {
-            return TaskModel.fromJson(snapshot.data()!);
+            return ProductModel.fromJson(snapshot.data()!);
           },
           toFirestore: (value, options) {
             return value.toJson();
@@ -30,7 +30,7 @@ class FireBaseTaskController {
   }
 
   ///update
-  Future<bool> update(TaskModel model) async {
+  Future<bool> update(ProductModel model) async {
     _firebase
         .collection(table)
         .doc(model.id)
@@ -40,7 +40,7 @@ class FireBaseTaskController {
   }
 
   /// delete
-  Future<bool> delete(TaskModel model) async {
+  Future<bool> delete(ProductModel model) async {
     _firebase
         .collection(table)
         .doc(model.id)

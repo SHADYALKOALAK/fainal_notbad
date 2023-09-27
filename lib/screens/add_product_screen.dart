@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:fainalnotbad/FireBase/firebase_products_controller.dart';
 import 'package:fainalnotbad/helbers/chickDataHelber.dart';
 import 'package:fainalnotbad/helbers/converter_helper.dart';
 import 'package:fainalnotbad/helbers/image_picker.dart';
@@ -9,22 +10,21 @@ import 'package:fainalnotbad/witgets/my_text_filed.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uuid/uuid.dart';
-import '../FireBase/firebase_task_controller.dart';
 import '../firebase/fb_storege_controller.dart';
 
-class AddTaskScreen extends StatefulWidget {
-  final TaskModel? taskModel;
+class AddProductScreen extends StatefulWidget {
+  final ProductModel? productModel;
 
-  const AddTaskScreen({
-    this.taskModel,
+  const AddProductScreen({
+    this.productModel,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<AddTaskScreen> createState() => _AddTaskScreenState();
+  State<AddProductScreen> createState() => _AddProductScreenState();
 }
 
-class _AddTaskScreenState extends State<AddTaskScreen>
+class _AddProductScreenState extends State<AddProductScreen>
     with ChickData, ImagePikerHelper, ConverterHelper {
   late TextEditingController nameEditingController;
   late TextEditingController notEditingController;
@@ -34,10 +34,10 @@ class _AddTaskScreenState extends State<AddTaskScreen>
   void initState() {
     super.initState();
     nameEditingController =
-        TextEditingController(text: widget.taskModel?.title ?? '');
+        TextEditingController(text: widget.productModel?.title ?? '');
     notEditingController =
-        TextEditingController(text: widget.taskModel?.not ?? '');
-    if (widget.taskModel != null) {
+        TextEditingController(text: widget.productModel?.not ?? '');
+    if (widget.productModel != null) {
       convertLinks();
     }
   }
@@ -46,7 +46,7 @@ class _AddTaskScreenState extends State<AddTaskScreen>
 
   Future<void> convertLinks() async {
     setState(() => loaderImage = true);
-    for (var item in widget.taskModel!.images!) {
+    for (var item in widget.productModel!.images!) {
       var file = await convertLinkToFile(item.link);
       imageFiles.add(file);
     }
@@ -67,7 +67,8 @@ class _AddTaskScreenState extends State<AddTaskScreen>
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text('Add Not'),
+        title: const Text('Add Product'),
+        centerTitle: true,
         backgroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,
@@ -167,7 +168,7 @@ class _AddTaskScreenState extends State<AddTaskScreen>
                         await clickData();
                       },
                       child: MyButton(
-                        text: widget.taskModel == null ? 'Add' : 'Update',
+                        text: widget.productModel == null ? 'Add' : 'Update',
                         sizeText: 15.sp,
                         colorButton: Colors.orange,
                       ),
@@ -199,16 +200,16 @@ class _AddTaskScreenState extends State<AddTaskScreen>
     } else if (notEditingController.text.isEmpty) {
       showSnackBar(context, "please Enter Your Not", true);
     } else {
-      widget.taskModel == null
-          ? FireBaseTaskController().insert(
-              TaskModel(
+      widget.productModel == null
+          ? FbProductsController().insert(
+              ProductModel(
                   id: id,
                   not: notEditingController.text,
                   images: links,
                   title: nameEditingController.text),
             )
-          : FireBaseTaskController().update(TaskModel(
-              id: widget.taskModel!.id,
+          : FbProductsController().update(ProductModel(
+              id: widget.productModel!.id,
               title: nameEditingController.text.trim(),
               not: notEditingController.text.trim(),
               images: links,
