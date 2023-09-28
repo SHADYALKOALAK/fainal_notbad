@@ -73,8 +73,10 @@ class _HomePageScreenState extends State<HomePageScreen>
                     return Stack(
                       children: [
                         InkWell(
-                          onTap: () => jump(context,
-                              AddProductScreen(productModel: list[index]), false),
+                          onTap: () => jump(
+                              context,
+                              AddProductScreen(productModel: list[index]),
+                              false),
                           splashColor: Colors.transparent,
                           child: Container(
                             width: double.infinity,
@@ -85,7 +87,7 @@ class _HomePageScreenState extends State<HomePageScreen>
                             ),
                             child: Padding(
                               padding: EdgeInsetsDirectional.only(
-                                  start: 80.w, top: 10.h, bottom: 10.h),
+                                  start: 100.w, top: 10.h, bottom: 10.h),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -96,9 +98,7 @@ class _HomePageScreenState extends State<HomePageScreen>
                                         fontSize: 15.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
+                                  SizedBox(height: 10.h),
                                   Text(
                                     list[index].not!,
                                     style: TextStyle(
@@ -116,8 +116,7 @@ class _HomePageScreenState extends State<HomePageScreen>
                           end: 10.w,
                           child: InkWell(
                             onTap: () async {
-                              await FbProductsController()
-                                  .delete(list[index]);
+                              await FbProductsController().delete(list[index]);
                               for (var item in list[index].images!) {
                                 await FbStorageController().delete(item.path);
                               }
@@ -136,8 +135,8 @@ class _HomePageScreenState extends State<HomePageScreen>
                             end: 10,
                             child: Container(
                               clipBehavior: Clip.antiAlias,
-                              width: 60.h,
-                              height: 60.h,
+                              width: 65.h,
+                              height: 65.h,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
                                   color: Colors.grey.shade300),
